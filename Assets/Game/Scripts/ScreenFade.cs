@@ -15,7 +15,7 @@ public class ScreenFade : MonoBehaviour
     {
         if (_currentDuration <= 0)
         {
-            
+            // Comment
         }
     }
 }
