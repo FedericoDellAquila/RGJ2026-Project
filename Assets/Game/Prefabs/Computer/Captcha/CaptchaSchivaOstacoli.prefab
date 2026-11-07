@@ -60,8 +60,10 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   player: {fileID: 122723025945394479}
-  ostacoli: []
   forzaSaltoPlayer: 5
+  ostacoli:
+  - {fileID: 3859121114585478254}
+  - {fileID: 4132704981457821592}
 --- !u!1 &679922947082845671
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,17 +334,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0593b601910bc1645935a8fff254c1ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CaptchaSchivaOstacoliOstacolo
-  timeLimit: 3
-  OnComplete:
-    m_PersistentCalls:
-      m_Calls: []
-  OnFailed:
-    m_PersistentCalls:
-      m_Calls: []
-  bounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
   velocita: 5
+  captchaSchivaOstacoli: {fileID: 4431871795956784053}
 --- !u!1 &5560434937357590185
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,17 +515,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0593b601910bc1645935a8fff254c1ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CaptchaSchivaOstacoliOstacolo
-  timeLimit: 3
-  OnComplete:
-    m_PersistentCalls:
-      m_Calls: []
-  OnFailed:
-    m_PersistentCalls:
-      m_Calls: []
-  bounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
   velocita: 5
+  captchaSchivaOstacoli: {fileID: 4431871795956784053}
 --- !u!1 &6831364759707519139
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,7 +546,7 @@ Transform:
   m_GameObject: {fileID: 6831364759707519139}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.43, y: -1.48, z: 0}
+  m_LocalPosition: {x: -1.43, y: -1.55, z: 0}
   m_LocalScale: {x: 0.5, y: 0.4928, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

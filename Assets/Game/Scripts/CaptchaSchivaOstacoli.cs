@@ -1,3 +1,4 @@
+using Game.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,18 @@ public class CaptchaSchivaOstacoli : Captcha {
     [Header("Impostazioni Salto")]
     [SerializeField] private float forzaSaltoPlayer = 7f;
     private bool aTerra = true;
+    private bool stoGiocando = true;
+    [SerializeField] Transform[] ostacoli;
+    private bool playerStaBene = true;
+    Vector3 posizionePartenzaOstacolo1 = new Vector3(15.06f, -1.835f, 0);
+    Vector3 posizionePartenzaOstacolo2 = new Vector3(2.92f, -1.835f, 0);
+
+    private void Start() {
+
+        posizionePartenzaOstacolo1 = ostacoli[0].transform.position;
+        posizionePartenzaOstacolo2 = ostacoli[1].transform.position;
+        playerStaBene = true;
+    }
 
     private void Awake() {
         // Trova il GameInput
@@ -29,6 +42,8 @@ public class CaptchaSchivaOstacoli : Captcha {
         if (gameInput != null) {
             gameInput.Onsalto += GameInput_Onsalto;
         }
+
+        EventManager.Instance.OnPlayerDamageNotificationEnd.AddListener(PartenzaGioco);
     }
 
     private void OnDestroy() {
@@ -41,7 +56,7 @@ public class CaptchaSchivaOstacoli : Captcha {
     }
 
     private void GameInput_Onsalto(object sender, System.EventArgs e) {
-        if (aTerra && rbPlayer != null) {
+        if (aTerra && rbPlayer != null && stoGiocando) {
             Salta();
         }
     }
@@ -56,12 +71,37 @@ public class CaptchaSchivaOstacoli : Captcha {
         if (collision.gameObject.name.Contains("pavimento")) {
             aTerra = true;
         }
-        if (collision.gameObject.name.Contains("Ostacolo")) {
+        if (collision.gameObject.name.Contains("Ostacolo") && stoGiocando == true) {
             Debug.Log("Game Over! Ostacolo colpito.");
+            stoGiocando = false;
+            playerStaBene = false;
+            foreach (Transform ostacolo in ostacoli) {
+                ostacolo.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+            }
         }
-
-
     }
+    public void PartenzaGioco(int i) {
+        ResetToInitialState();
+        stoGiocando = true;
+    }
+
+    public bool getStoGiocando() {
+        return stoGiocando;
+    }
+
+    public override bool AreConditionsSatisfied() {
+        return playerStaBene;
+    }
+
+    public override void ResetToInitialState() {
+        ostacoli[0].position = posizionePartenzaOstacolo1;
+        ostacoli[1].position = posizionePartenzaOstacolo2;
+        playerStaBene = true;
+        foreach (Transform ostacolo in ostacoli) {
+            ostacolo.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        }
+    }
+ 
 }
 
 

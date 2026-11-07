@@ -22,9 +22,6 @@ public class TimeBar : MonoBehaviour
             pivotPoint.transform.localScale.y, 
             pivotPoint.transform.localScale.z
         );
-        
-        Debug.Log("ClampedValue: " + clampedValue);
-        Debug.Log("localScale: " + pivotPoint.transform.localScale.x);
     }
 
     public void Initialize()
