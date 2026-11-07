@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class CaptchaSchivaOstacoli : Captcha {
     [SerializeField] private CaptchaSchivaOstacoliPlayer player;
+    private Animator animator;
     
 
     private Rigidbody2D rbPlayer;
@@ -27,6 +28,7 @@ public class CaptchaSchivaOstacoli : Captcha {
 
     private void Awake() {
         // Trova il GameInput
+        animator = player.GetComponent<Animator>();
         if (Player.Instance != null) {
             gameInput = Player.Instance.GetComponentInChildren<GameInput>();
         }
@@ -62,6 +64,7 @@ public class CaptchaSchivaOstacoli : Captcha {
     }
 
     private void Salta() {
+        animator.SetBool("isJumping",true);
         rbPlayer.linearVelocity = new Vector2(rbPlayer.linearVelocity.x, forzaSaltoPlayer);
         aTerra = false;
     }
@@ -70,6 +73,7 @@ public class CaptchaSchivaOstacoli : Captcha {
     private void Player_OnCollisionEntered(object sender, Collision2D collision) {
         if (collision.gameObject.name.Contains("pavimento")) {
             aTerra = true;
+            animator.SetBool("isJumping", false);
         }
         if (collision.gameObject.name.Contains("Ostacolo") && stoGiocando == true) {
             Debug.Log("Game Over! Ostacolo colpito.");
