@@ -40,7 +40,7 @@ public class TimeBar : MonoBehaviour
         
             if (_currentTime <= 0.0f)
             {
-                onTimeout.Invoke();
+                onTimeout?.Invoke();
                 SetNormalizedProgress(0.0f);
             }
             else
