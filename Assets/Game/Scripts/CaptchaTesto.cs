@@ -3,34 +3,36 @@ using UnityEngine;
 
 public class CaptchaTesto : Captcha
 {
-    [SerializeField] TextMeshProUGUI parolaDaCopiare;  
+    [SerializeField] TextMeshProUGUI parolaDaCopiare;
     [SerializeField] TMP_InputField inputField;
 
     private string stringa;
     private string parolaChiave = "Ciao";
-    
+
     void Start()
     {
-        if(parolaDaCopiare != null) {
+        if (parolaDaCopiare != null)
+        {
             parolaDaCopiare.text = parolaChiave;
         }
+    }
 
-        if (inputField != null) {
-            inputField.onSubmit.AddListener(CheckWord);
-        }
+    private void Update()
+    {
+        stringa = inputField.text;
+    }
 
-}
-    public override bool AreConditionsSatisfied() {
+
+    public override bool AreConditionsSatisfied()
+    {
         return stringa != null && stringa.Trim() == parolaChiave;
     }
-    
-   
 
-
-
-    void CheckWord(string testo) { 
-            stringa = testo;
-        }
+    public override void ResetToInitialState()
+    {
+        stringa = "";
+        inputField.text = "";
     }
+}
 
     

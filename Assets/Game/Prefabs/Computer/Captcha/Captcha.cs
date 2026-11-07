@@ -36,7 +36,7 @@ public class Captcha : MonoBehaviour
         // }
     }
 
-    public void ResetToInitialState()
+    public virtual void ResetToInitialState()
     {
         ResetTimer();
     }

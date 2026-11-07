@@ -45,5 +45,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.StateMachine.StateMachine
   sequenceStates:
-  - {fileID: 11400000, guid: 19e1e16fddcfc17458131b69efed8c71, type: 2}
+  - {fileID: -2767364632519691932, guid: bf8db240b81252741a9d3c4093b06dc5, type: 3}
+  - {fileID: -4717968305576704790, guid: a8d18055e4ebe774ca5143897dc239c5, type: 3}
+  - {fileID: 6229497133560815297, guid: 0ce53474b3db9e5419b3dd33003db6af, type: 3}
+  - {fileID: -4717968305576704790, guid: a8d18055e4ebe774ca5143897dc239c5, type: 3}
+  - {fileID: 682867505264425348, guid: 3699524f8de7d0d4a9f0462f05bde3ea, type: 3}
+  - {fileID: -4717968305576704790, guid: a8d18055e4ebe774ca5143897dc239c5, type: 3}
+  - {fileID: 2771094913820517469, guid: 715775da4969b1543b9766f138a24d74, type: 3}
+  - {fileID: -4717968305576704790, guid: a8d18055e4ebe774ca5143897dc239c5, type: 3}
+  - {fileID: 7670316927258660496, guid: 5a9c200a0b1f27d4996b5586179ab4a3, type: 3}
+  gameOverState: {fileID: 6403749709846812406, guid: f0076137b54e3914db51e9f2391394f7, type: 3}
   loopSequence: 0

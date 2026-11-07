@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using Game.StateMachine.States;
 using UnityEngine;
 
@@ -8,14 +9,14 @@ namespace Game.StateMachine
     {
         [Header("Sequenza di Stati (Classi C#)")]
         // [SerializeReference] permette di serializzare classi polimorfiche nell'Inspector
-        [SerializeReference]
-        private List<GameState> sequenceStates = new List<GameState>();
-
+        [SerializeReference] private List<GameState> sequenceStates = new List<GameState>();
+        [SerializeField] private GameState gameOverState;
+        
         [SerializeField] private bool loopSequence = false;
-
-        private int currentIndex = 0;
-        private GameState currentState;
-        private bool isRunning = false;
+        
+        private int _currentIndex = 0;
+        [SerializeField, ReadOnly(true)] private GameState currentState;
+        private bool _isRunning = false;
 
         private void Start()
         {
@@ -31,7 +32,7 @@ namespace Game.StateMachine
 
         private void Update()
         {
-            if (!isRunning || currentState == null) return;
+            if (!_isRunning || currentState == null) return;
 
             // Esegue la logica dello stato corrente
             currentState.OnUpdate();
@@ -45,29 +46,29 @@ namespace Game.StateMachine
 
         public void StartStateMachine()
         {
-            currentIndex = 0;
-            ChangeState(currentIndex);
-            isRunning = true;
+            _currentIndex = 0;
+            ChangeState(_currentIndex);
+            _isRunning = true;
         }
 
         private void GoToNextState()
         {
-            currentIndex++;
+            _currentIndex++;
 
-            if (currentIndex < sequenceStates.Count)
+            if (_currentIndex < sequenceStates.Count)
             {
-                ChangeState(currentIndex);
+                ChangeState(_currentIndex);
             }
             else
             {
                 if (loopSequence)
                 {
-                    currentIndex = 0;
-                    ChangeState(currentIndex);
+                    _currentIndex = 0;
+                    ChangeState(_currentIndex);
                 }
                 else
                 {
-                    isRunning = false;
+                    _isRunning = false;
                     currentState?.OnExit();
                     currentState = null;
                     Debug.Log("Sequenza della State Machine completata.", this);
@@ -77,8 +78,13 @@ namespace Game.StateMachine
 
         private void ChangeState(int index)
         {
-            currentState?.OnExit();
-            currentState = sequenceStates[index];
+            if (currentState != null)
+            {
+                currentState.OnExit();
+                Destroy(currentState.gameObject);
+            }
+            
+            currentState = Instantiate(sequenceStates[index], transform);
             currentState?.OnEnter();
         }
     }

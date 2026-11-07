@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game.StateMachine.States
 {
-    public abstract class GameState : ScriptableObject
+    public abstract class GameState : MonoBehaviour
     {
         public string stateName;
 

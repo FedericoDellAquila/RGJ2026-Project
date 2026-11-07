@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,6 +18,9 @@ public class CaptchaWindow : MonoBehaviour
 
     private void Start()
     {
+        EventManager.Instance.OnPlayerDamageNotificationStart.AddListener(OnPlayerDamageNotificationStartCallback);
+        EventManager.Instance.OnPlayerDamageNotificationEnd.AddListener(OnPlayerDamageNotificationEndCallback);
+        
         if (numOfCaptcha <= 0)
         {
             MoveToNextCaptcha();
@@ -24,6 +28,17 @@ public class CaptchaWindow : MonoBehaviour
         }
         
         RequestCaptcha();
+    }
+
+    private void OnPlayerDamageNotificationStartCallback(int value)
+    {
+        timeBar.ResetTimer();
+    }
+    
+    private void OnPlayerDamageNotificationEndCallback(int value)
+    {
+        _currentCaptcha.ResetToInitialState();
+        timeBar.StartTimer();
     }
 
     public void RequestCaptcha()
@@ -43,14 +58,12 @@ public class CaptchaWindow : MonoBehaviour
     {
         if (_currentCaptcha.AreConditionsSatisfied())
         {
-            Destroy(_currentCaptcha);
+            Destroy(_currentCaptcha.gameObject);
             MoveToNextCaptcha();
         }
         else
         {
-            _currentCaptcha.ResetToInitialState();
-            timeBar.ResetTimer();
-            timeBar.StartTimer();
+            Player.Instance.TakeDamage();
         }
     }
 

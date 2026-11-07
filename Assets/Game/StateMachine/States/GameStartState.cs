@@ -2,7 +2,6 @@ using Game.Scripts;
 using Game.StateMachine.States;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EventState", menuName = "StateMachine/States/GameStart")]
 public class GameStartState : GameState
 {
     [Header("Parametri di Attesa")]
@@ -18,7 +17,7 @@ public class GameStartState : GameState
         });
         
         base.OnEnter();
-        timer = 0f;
+        timer = 0.0f;
         Debug.Log($"[Stato: {stateName}] Inizio attesa di {waitDuration} secondi.");
     }
 
