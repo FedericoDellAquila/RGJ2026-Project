@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 public class CaptchaWindow : MonoBehaviour
 {
@@ -25,6 +22,7 @@ public class CaptchaWindow : MonoBehaviour
         {
             captcha.transform.SetParent(Image.transform);
             captcha.gameObject.SetActive(false);
+            captcha.bounds = Image.bounds;
         }
 
         _currentCaptchaIndex = _captchas.Count - 1;
