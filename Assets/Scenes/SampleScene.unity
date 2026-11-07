@@ -391,6 +391,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScreenFade
   blackScreen: {fileID: 338337683}
   duration: 3
+  OnScreenFadeFinished:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &330585550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,6 +525,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1955013195 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8965731314897475759, guid: 22444f099bad63d44ab9c1685b2e1f4d, type: 3}
+  m_PrefabInstance: {fileID: 648418246958559005}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1955013198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955013195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 992bab39da48cfd4aad03c34db1bcbfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MouseToggle
+  toggleKey: 0
+  startDisabled: 0
+  disableEventSystem: 1
 --- !u!1001 &648418246958559005
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -581,7 +604,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8965731314897475759, guid: 22444f099bad63d44ab9c1685b2e1f4d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1955013198}
   m_SourcePrefab: {fileID: 100100000, guid: 22444f099bad63d44ab9c1685b2e1f4d, type: 3}
 --- !u!1001 &1017513192593596686
 PrefabInstance:
@@ -804,6 +830,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3507178701636364388, guid: f84e48f082cd5a84383e7d39c613514b, type: 3}
+      propertyPath: blackScreen
+      value: 
+      objectReference: {fileID: 338337683}
     - target: {fileID: 3711782035772683866, guid: f84e48f082cd5a84383e7d39c613514b, type: 3}
       propertyPath: m_Controller
       value: 

@@ -30,6 +30,11 @@ public class CaptchaWindow : MonoBehaviour
         RequestCaptcha();
     }
 
+    public int GetNumOfCaptcha()
+    {
+        return numOfCaptcha;
+    }
+
     private void OnPlayerDamageNotificationStartCallback(int value)
     {
         timeBar.ResetTimer();

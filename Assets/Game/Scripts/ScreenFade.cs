@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ScreenFade : MonoBehaviour
@@ -10,6 +11,8 @@ public class ScreenFade : MonoBehaviour
     private bool _isFading;
     private readonly Color _blackColor = Color.black;
     private readonly Color _transparentColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+
+    public UnityEvent OnScreenFadeFinished = new UnityEvent();
 
     private void Start()
     {
@@ -26,6 +29,7 @@ public class ScreenFade : MonoBehaviour
         {
             _isFading = false;
             blackScreen.color = _transparentColor;
+            OnScreenFadeFinished.Invoke();
             return;
         }
 

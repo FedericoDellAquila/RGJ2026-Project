@@ -17,8 +17,15 @@ public class GameStartState : GameState
         });
         
         base.OnEnter();
-        timer = 0.0f;
-        Debug.Log($"[Stato: {stateName}] Inizio attesa di {waitDuration} secondi.");
+
+        Player.Instance.GetComponent<MouseToggle>().SetMouseEnabled(false);
+        
+        Camera.main.GetComponent<ScreenFade>().OnScreenFadeFinished.AddListener(OnScreenFadeFinishedCallback);
+    }
+
+    private void OnScreenFadeFinishedCallback()
+    {
+        Player.Instance.GetComponent<MouseToggle>().SetMouseEnabled(true);
     }
 
     public override void OnUpdate()

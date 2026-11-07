@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using Game.Scripts;
 using Game.StateMachine.States;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Game.StateMachine
 {
@@ -28,6 +30,13 @@ namespace Game.StateMachine
             {
                 Debug.LogWarning("Nessun stato configurato nella State Machine!", this);
             }
+            
+            EventManager.Instance.OnGameOver.AddListener(OnGameOverCallback);
+        }
+
+        private void OnGameOverCallback()
+        {
+            SceneManager.LoadScene(0);
         }
 
         private void Update()

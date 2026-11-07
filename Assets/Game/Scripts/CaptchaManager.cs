@@ -13,11 +13,6 @@ public class CaptchaManager : Singleton<CaptchaManager>
 
     private int _lastRandomIndex = -1;
 
-    private void Start()
-    {
-        CreateCaptchaWindow(3);
-    }
-
     public CaptchaWindow CreateCaptchaWindow(int count)
     {
         GameObject captchaWindowObject = Instantiate(captchaWindowPrefab);
