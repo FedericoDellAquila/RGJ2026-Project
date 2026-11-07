@@ -31,7 +31,7 @@ public class CaptchaWindow : MonoBehaviour
 
         Captcha lastCaptcha = _captchas[_currentCaptchaIndex];
         lastCaptcha.gameObject.SetActive(true);
-        lastCaptcha.
+        lastCaptcha.SetRenderLayer(2);
         
         lastCaptcha.OnComplete.AddListener(OnCaptchaCompleted);
     }
