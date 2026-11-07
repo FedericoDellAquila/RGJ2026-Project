@@ -110,3 +110,6 @@ InitTestScene*.unity*
 
 # VS Code
 .vscode
+
+# Rider
+.idea
