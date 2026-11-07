@@ -21,7 +21,7 @@ public class CaptchaTesto : Captcha
 
 }
     public override bool AreConditionsSatisfied() {
-        return stringa.Trim() == parolaChiave;
+        return stringa != null && stringa.Trim() == parolaChiave;
     }
     
    
