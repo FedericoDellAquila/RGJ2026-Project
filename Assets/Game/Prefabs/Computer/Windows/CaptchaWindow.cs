@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Game.Scripts;
 using TMPro;
@@ -13,11 +14,13 @@ public class CaptchaWindow : MonoBehaviour
     [SerializeField] private SpriteRenderer Panel;
     [SerializeField] private TMP_Text Text;
     [SerializeField] private TimeBar timeBar;
-    [SerializeField] private int numOfCaptcha = 3;
+    public int numOfCaptcha = 3;
     private Captcha _currentCaptcha;
 
     private void Start()
     {
+        timeBar.onTimeout.AddListener(OnTimeout);
+        
         EventManager.Instance.OnPlayerDamageNotificationStart.AddListener(OnPlayerDamageNotificationStartCallback);
         EventManager.Instance.OnPlayerDamageNotificationEnd.AddListener(OnPlayerDamageNotificationEndCallback);
         
@@ -53,7 +56,6 @@ public class CaptchaWindow : MonoBehaviour
         _currentCaptcha.gameObject.SetActive(true);
         _currentCaptcha.SetRenderLayer(2);
         
-        timeBar.onTimeout.AddListener(OnTimeout);
         timeBar.timeLimit = _currentCaptcha.timeLimit;
         timeBar.Initialize();
         timeBar.StartTimer();
@@ -63,13 +65,20 @@ public class CaptchaWindow : MonoBehaviour
     {
         if (_currentCaptcha.AreConditionsSatisfied())
         {
-            Destroy(_currentCaptcha.gameObject);
-            MoveToNextCaptcha();
+            StartCoroutine(Wait());
         }
         else
         {
             Player.Instance.TakeDamage();
         }
+    }
+
+    private IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1.0f);
+        Destroy(_currentCaptcha.gameObject);
+        _currentCaptcha = null;
+        MoveToNextCaptcha();
     }
 
     private void MoveToNextCaptcha()

@@ -11,7 +11,7 @@ public class Player : Singleton<Player>
     
     private Vector2 worldMousePosition;
 
-    private void Awake()
+    protected override void Awake()
     {
         _currentHealth = startingHealth;
         

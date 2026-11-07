@@ -13,9 +13,11 @@ namespace Game.Scripts
 
         public UnityEvent<int> OnPlayerDamageNotificationStart = new UnityEvent<int>();
         public UnityEvent<int> OnPlayerDamageNotificationEnd = new UnityEvent<int>();
+        public UnityEvent OnDocumentationProcessStarted = new UnityEvent();
         public UnityEvent OnGameOver = new UnityEvent();
 
         public bool playerGameOver;
+        public bool documentationStarted;
 
         // Metodi per invocare gli eventi in sicurezza
         public void TriggerScoreChange(int newScore)
@@ -42,6 +44,12 @@ namespace Game.Scripts
         {
             playerGameOver = true;
             OnGameOver?.Invoke();
+        }
+        
+        public void TriggerDocumentationProcessStarted()
+        {
+            documentationStarted = true;
+            OnDocumentationProcessStarted?.Invoke();
         }
     }
 }

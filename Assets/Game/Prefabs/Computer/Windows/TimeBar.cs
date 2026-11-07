@@ -37,6 +37,7 @@ public class TimeBar : MonoBehaviour
         
             if (_currentTime <= 0.0f)
             {
+                isTimerStarted = false;
                 onTimeout.Invoke();
                 SetNormalizedProgress(0.0f);
             }

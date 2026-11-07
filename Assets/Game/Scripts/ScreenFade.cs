@@ -35,8 +35,6 @@ public class ScreenFade : MonoBehaviour
 
         float normalizedValue = _currentDuration / duration;
         blackScreen.color = Color.Lerp(_transparentColor, _blackColor, normalizedValue);
-        
-        Debug.Log(normalizedValue);
     }
 
     public void StartFading()

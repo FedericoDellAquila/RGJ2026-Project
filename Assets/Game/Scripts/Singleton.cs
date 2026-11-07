@@ -35,7 +35,7 @@ namespace Game.Scripts
                         {
                             GameObject singletonObject = new GameObject(typeof(T).Name + " (Singleton)");
                             _instance = singletonObject.AddComponent<T>();
-                            DontDestroyOnLoad(singletonObject);
+                            // DontDestroyOnLoad(singletonObject);
                         }
                     }
 
@@ -49,7 +49,7 @@ namespace Game.Scripts
             if (_instance == null)
             {
                 _instance = this as T;
-                DontDestroyOnLoad(gameObject);
+                // DontDestroyOnLoad(gameObject);
             }
             else if (_instance != this)
             {

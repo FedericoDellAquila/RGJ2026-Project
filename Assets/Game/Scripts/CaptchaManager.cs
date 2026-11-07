@@ -17,7 +17,9 @@ public class CaptchaManager : Singleton<CaptchaManager>
     {
         GameObject captchaWindowObject = Instantiate(captchaWindowPrefab);
         CaptchaWindow captchaWindow = captchaWindowObject.GetComponent<CaptchaWindow>();
+        captchaWindow.numOfCaptcha = count;
         captchaWindow.Show();
+        
         return captchaWindow;
     }
 
