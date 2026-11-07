@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -10,63 +11,72 @@ public class CaptchaWindow : MonoBehaviour
     [SerializeField] private SpriteRenderer Image;
     [SerializeField] private SpriteRenderer Panel;
     [SerializeField] private TMP_Text Text;
+    [SerializeField] private TimeBar timeBar;
+    [SerializeField] private int numOfCaptcha = 3;
+    private Captcha _currentCaptcha;
 
-    private int _currentCaptchaIndex;
-    private List<Captcha> _captchas;
-    
-    public void AssignCaptchaList(List<Captcha> captchaList)
+    private void Start()
     {
-        _captchas = captchaList;
-
-        foreach (Captcha captcha in captchaList)
+        if (numOfCaptcha <= 0)
         {
-            captcha.transform.SetParent(Image.transform);
-            captcha.gameObject.SetActive(false);
-            captcha.bounds = Image.bounds;
+            MoveToNextCaptcha();
+            return;
         }
-
-        _currentCaptchaIndex = _captchas.Count - 1;
-
-        Captcha lastCaptcha = _captchas[_currentCaptchaIndex];
-        lastCaptcha.gameObject.SetActive(true);
-        lastCaptcha.SetRenderLayer(2);
         
-        lastCaptcha.OnComplete.AddListener(OnCaptchaCompleted);
+        RequestCaptcha();
     }
 
-    private void OnCaptchaCompleted(Captcha captcha)
+    public void RequestCaptcha()
     {
-        captcha.OnComplete.RemoveListener(OnCaptchaCompleted);
-        _captchas.Remove(captcha);
-        Destroy(captcha);
+        _currentCaptcha = CaptchaManager.Instance.CreateCaptcha();
+        _currentCaptcha.transform.SetParent(transform);
+        _currentCaptcha.gameObject.SetActive(true);
+        _currentCaptcha.SetRenderLayer(2);
+        
+        timeBar.onTimeout.AddListener(OnTimeout);
+        timeBar.timeLimit = _currentCaptcha.timeLimit;
+        timeBar.Initialize();
+        timeBar.StartTimer();
+    }
 
-        MoveToNextCaptcha();
+    private void OnTimeout()
+    {
+        if (_currentCaptcha.AreConditionsSatisfied())
+        {
+            Destroy(_currentCaptcha);
+            MoveToNextCaptcha();
+        }
+        else
+        {
+            _currentCaptcha.ResetToInitialState();
+            timeBar.ResetTimer();
+            timeBar.StartTimer();
+        }
     }
 
     private void MoveToNextCaptcha()
     {
-        if (_captchas.Count != 0)
-            return;
+        numOfCaptcha--;
 
-        OnAllCaptchaCompleted.Invoke();
-        Destroy(this);
+        if (numOfCaptcha <= 0)
+        {
+            OnAllCaptchaCompleted.Invoke();
+            Destroy(gameObject);
+            return;
+        }
+        
+        RequestCaptcha();
     }
     
-    public void SetRenderLayer(uint layer)
+    public void Show()
     {
-        Image.renderingLayerMask = layer;
-        Panel.renderingLayerMask = layer;
-        Text.gameObject.layer = (int)layer;
+        Image.sortingOrder = -1;
+        Panel.sortingOrder = -1;
+        Text.GetComponent<MeshRenderer>().sortingOrder = -1;
     }
 
     private void OnDestroy()
     {
-        if (_captchas == null)
-            return;
-        
-        foreach (Captcha captcha in _captchas)
-            captcha.OnComplete.RemoveListener(OnCaptchaCompleted);
-        
         OnAllCaptchaCompleted.RemoveAllListeners();
     }
 }

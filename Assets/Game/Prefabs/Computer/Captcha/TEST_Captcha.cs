@@ -5,12 +5,24 @@ public class TEST_Captcha : Captcha
 {
     [SerializeField] private WorldButton Button;
 
+    private bool _isPressed;
+    
     private void Awake()
     {
         Button.OnButtonClicked.AddListener(() =>
         {
             Debug.Log("DONE");
-            OnComplete.Invoke(this);
+            _isPressed = true;
         });
+    }
+
+    public override void SetRenderLayer(int layer)
+    {
+        Button.GetComponent<SpriteRenderer>().sortingOrder = 3;
+    }
+
+    public override bool AreConditionsSatisfied() 
+    {
+        return _isPressed;
     }
 }

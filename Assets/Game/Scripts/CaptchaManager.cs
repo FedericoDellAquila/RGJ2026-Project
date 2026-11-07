@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Game.Scripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class CaptchaManager : MonoBehaviour
+public class CaptchaManager : Singleton<CaptchaManager>
 {
     [SerializeField] private GameObject captchaWindowPrefab;
     [SerializeField] private List<GameObject> availableCaptchas;
@@ -21,18 +22,12 @@ public class CaptchaManager : MonoBehaviour
     {
         GameObject captchaWindowObject = Instantiate(captchaWindowPrefab);
         CaptchaWindow captchaWindow = captchaWindowObject.GetComponent<CaptchaWindow>();
-        captchaWindow.SetRenderLayer(1);
-        
-        for (uint i = 0; i < count; ++i)
-            CreateCaptcha(captchaWindow);
-
+        captchaWindow.Show();
         return captchaWindow;
     }
-    
-    private void CreateCaptcha(CaptchaWindow captchaWindow)
+
+    public Captcha CreateCaptcha()
     {
-        List<Captcha> selectedCaptchas = new List<Captcha>();
-        
         int randomIndex = Random.Range(0, availableCaptchas.Count);
         while (randomIndex == _lastRandomIndex)
             randomIndex = Random.Range(0, availableCaptchas.Count);
@@ -40,9 +35,7 @@ public class CaptchaManager : MonoBehaviour
         GameObject selectedCaptchaObject = Instantiate(availableCaptchas[randomIndex]);
         _lastRandomIndex = randomIndex;
         
-        selectedCaptchas.Add(selectedCaptchaObject.GetComponent<Captcha>());
-        
-        captchaWindow.AssignCaptchaList(selectedCaptchas);
+        return selectedCaptchaObject.GetComponent<Captcha>();
     }
 
     public void ClearCaptchas()
