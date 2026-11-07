@@ -666,6 +666,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb133c52da2fc442aae5d4362059e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScreenFade
+  blackScreen: {fileID: 0}
+  duration: 3
 --- !u!1 &6207966409320151281
 GameObject:
   m_ObjectHideFlags: 0

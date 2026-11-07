@@ -44,6 +44,7 @@ public class Player : Singleton<Player>
 
     public void TakeDamage()
     {
+        Camera.main.GetComponent<ScreenShake>().Shake();
         _currentHealth--;
         EventManager.Instance.TriggerPlayerDamageNotificationStart(_currentHealth);
     }
