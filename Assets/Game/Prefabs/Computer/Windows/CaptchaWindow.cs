@@ -14,6 +14,7 @@ public class CaptchaWindow : MonoBehaviour
     [SerializeField] private SpriteRenderer Panel;
     [SerializeField] private TMP_Text Text;
     [SerializeField] private TimeBar timeBar;
+    [SerializeField] private float pausaTraCaptcha = 2f; // secondi di pausa
     public int numOfCaptcha = 3;
     private Captcha _currentCaptcha;
 
@@ -78,6 +79,8 @@ public class CaptchaWindow : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         Destroy(_currentCaptcha.gameObject);
         _currentCaptcha = null;
+        if (numOfCaptcha > 1)                                                       //
+            yield return new WaitForSeconds(pausaTraCaptcha);                       //
         MoveToNextCaptcha();
     }
 
