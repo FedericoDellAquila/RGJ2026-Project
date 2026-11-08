@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CaptchaManager
   captchaWindowPrefab: {fileID: 1140274342141168426, guid: cdc98cc5ba2f0294d94fe5888e8a2df3, type: 3}
   availableCaptchas:
-  - {fileID: 675888574978365042, guid: a8bfe3b415561a247a5c8c3fdcbdb76d, type: 3}
+  - {fileID: 1738780630981347461, guid: 1f5341c8128a4e8498804d5da1ad706f, type: 3}
   - {fileID: 675888574978365042, guid: a8bfe3b415561a247a5c8c3fdcbdb76d, type: 3}

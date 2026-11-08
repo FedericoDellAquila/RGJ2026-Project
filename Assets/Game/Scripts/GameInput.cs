@@ -4,7 +4,7 @@ using UnityEngine;
 public class GameInput : MonoBehaviour
 {
     private PlayerInputActions inputActions;
-    public event EventHandler Onsalto;
+    public event EventHandler Onclick;
     private void Awake() {
         inputActions = new PlayerInputActions();
         inputActions.Player.Enable();
@@ -13,7 +13,7 @@ public class GameInput : MonoBehaviour
     }
 
     private void Click_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
-        Onsalto?.Invoke(this, EventArgs.Empty);
+        Onclick?.Invoke(this, EventArgs.Empty);
     }
 
    

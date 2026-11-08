@@ -42,7 +42,7 @@ public class CaptchaSchivaOstacoli : Captcha {
         }
 
         if (gameInput != null) {
-            gameInput.Onsalto += GameInput_Onsalto;
+            gameInput.Onclick += GameInput_Onclick;
         }
 
         EventManager.Instance.OnPlayerDamageNotificationEnd.AddListener(PartenzaGioco);
@@ -50,14 +50,14 @@ public class CaptchaSchivaOstacoli : Captcha {
 
     private void OnDestroy() {
 
-        if (gameInput != null) gameInput.Onsalto -= GameInput_Onsalto;
+        if (gameInput != null) gameInput.Onclick -= GameInput_Onclick;
         if (player != null) {
             player.OnCollisionEntered -= Player_OnCollisionEntered;
             
         }
     }
 
-    private void GameInput_Onsalto(object sender, System.EventArgs e) {
+    private void GameInput_Onclick(object sender, System.EventArgs e) {
         if (aTerra && rbPlayer != null && stoGiocando) {
             Salta();
         }
